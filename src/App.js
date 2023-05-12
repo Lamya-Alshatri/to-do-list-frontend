@@ -1,5 +1,5 @@
 
-import './App.css';
+// import './App.css';
 
 import React, { useState } from 'react'
 import Todo from "./components/Todo"
@@ -19,7 +19,7 @@ export default function App() {
   const GetData = () => {
   axios.get(`${endpoint}/tasks`)
   .then(res => {
- console.log(process.env)
+//  console.log(process.env)
     setTasks(res.data)
   })
   .catch(err => {
