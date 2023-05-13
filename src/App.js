@@ -8,6 +8,19 @@ import Add from"./components/Add"
 import Register from"./components/Register"
 import Login from "./components/Login"
 import { Routes, Route, Link } from "react-router-dom";
+import { useDisclosure } from '@chakra-ui/react'
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
+import { Button} from '@chakra-ui/react'
+import { Grid  } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 
 export default function App() {
@@ -15,7 +28,8 @@ export default function App() {
 
   const endpoint = process.env.REACT_APP_ENDPOINT
 
- 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const GetData = () => {
   axios.get(`${endpoint}/tasks`)
   .then(res => {
@@ -187,28 +201,55 @@ const logout = () =>{
    
     </div> 
 <br/>
-<h1 className='list1'>To-Do list</h1>
+<h1 /*className='list1'*/>To-Do list</h1>
 <br/>
 
 
       <Routes>
-        <Route path="/home" element={<div className="home">
+        <Route path="/home" element={<div >
 
         <Add addfunction={postaNewTodo}/>
         <br/>
         <hr className=""/>
 
             <br/>
-    <div className='wrapper'>
-    <button className='box a'  onClick={GetData}>Get ALL</button> 
-    
-    <button className='box b' onClick={deleteAll}>Delete All</button>
+    <div >
+   
+
+
+    <Grid templateColumns='repeat(8, 2fr)' m={[5, 5]} gap={6}>
+
+    <Button  w='50%' h='10' bg='blue.500'  onClick={GetData}>Get ALL</Button> 
+
+   
+      <Button  w='50%' h='10' bg='blue.500' onClick={onOpen}>Delete all</Button> 
   
-    <button className='box c' onClick={GetCertainTodos}>Get Finished</button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Confirmation window</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          Are you sure you want to delete all of the to-dos ?
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button onClick={deleteAll} variant='ghost'> Proceed </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
   
-    <button className='box d' onClick={GetCertainTodos2}>Get Pending</button>
+    <Button  w='50%' h='10' bg='blue.500' onClick={GetCertainTodos}>Get Finished</Button>
   
-    <button className='box e' onClick={relodpage} > Reload Page </button>
+    <Button  w='50%' h='10' bg='blue.500' onClick={GetCertainTodos2}>Get Pending</Button>
+  
+    <Button  w='50%' h='10' bg='blue.500' onClick={relodpage} > Reload Page </Button>
+
+    </Grid>
+   
     </div>
       {/* {map} */}
                   <br/>

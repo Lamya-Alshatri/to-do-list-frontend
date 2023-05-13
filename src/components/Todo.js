@@ -15,7 +15,7 @@ export default function Todo (props) {
           <div className='ite'>
             
           <li className='item1' ><form><p> <input className = "check"  type="checkbox"  name = "checkbox3"   defaultChecked = {isCompleted} onClick={()=>{props.checkAndUpdate1(_id,!isCompleted)}}/>
-          <label className='Clo' htmlFor='Clo'  ><span style={{color:'#2E4C6D'}} >Finished </span>: <span style={{color:'#FC997C'}}>Pending</span></label></p></form>
+          <label className='Clo' htmlFor='Clo'  ><span /*style={{color:'#2E4C6D'}}*/ >Finished </span>: <span /*style={{color:'#FC997C'}}*/>Pending</span></label></p></form>
         
 
           <div className='container'>

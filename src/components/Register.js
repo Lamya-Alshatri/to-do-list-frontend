@@ -48,10 +48,10 @@ export default function Register(props) {
         <div className="" >
 
 
-    <div className='Register' style={{backgroundColor:'#FC997C'}}>
+    <div className='Register' >
     <h4 className=""> Register</h4>
     </div>
-    <div className="Register" style={{backgroundColor:'white', marginBottom:'50px'}} >
+    <div className="Register" >
       <br/>
 
   <span className=" " >Name </span>
