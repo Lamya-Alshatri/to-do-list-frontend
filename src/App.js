@@ -8,7 +8,7 @@ import Add from"./components/Add"
 import Register from"./components/Register"
 import Login from "./components/Login"
 import { Routes, Route, Link } from "react-router-dom";
-import { useDisclosure } from '@chakra-ui/react'
+import { Box, Center, Heading, useDisclosure } from '@chakra-ui/react'
 import {
   Modal,
   ModalOverlay,
@@ -17,10 +17,15 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Grid
 } from '@chakra-ui/react'
 import { Button} from '@chakra-ui/react'
-import { Grid  } from '@chakra-ui/react'
+import { SimpleGrid  } from '@chakra-ui/react'
+import { IoMdTrash } from "react-icons/io";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import Header from './components/Header';
+
+// import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 
 export default function App() {
@@ -175,54 +180,48 @@ const logout = () =>{
 }
   
   return(
-    <div className='App '>
+    <Box bg='pallete.whiteBlue' >
 
     
       
-    <ul className="">
-      <li className="it1">
-      <Link className=' link' to="/home">Home</Link>
-      </li>
-      <li className="it2">
-      <Link className='link' to="/register">Register</Link>
-      </li>
-      <li className="it3">
-      <Link className='link' to="/login">Login</Link>
-      </li>
-
-      <li className='No'> Welcome {username}</li>
-    </ul>
+<Header name={username} logout={logout} />
   
 
 <br/>
-<div className='Do'>
+{/* <div className='Do'>
 
       <button  className='btn' onClick={logout}>logout</button>
    
-    </div> 
+    </div>  */}
 <br/>
-<h1 /*className='list1'*/>To-Do list</h1>
+<Center>
+<Heading color='pallete.darkBlue' as='h1' m={10}  /*className='list1'*/>To-Do list</Heading>
 <br/>
 
-
+</Center>
       <Routes>
         <Route path="/home" element={<div >
-
+          <Center>
         <Add addfunction={postaNewTodo}/>
+        </Center>
         <br/>
-        <hr className=""/>
+        <hr />
 
             <br/>
     <div >
    
-
-
-    <Grid templateColumns='repeat(8, 2fr)' m={[5, 5]} gap={6}>
-
-    <Button  w='50%' h='10' bg='blue.500'  onClick={GetData}>Get ALL</Button> 
+    <Center>
+    {/* <Box boxSize='sm' border='solid 1px'> */}
+    <Grid
+  h='200px'
+  templateRows='repeat(3, 1fr)'
+  templateColumns='repeat(3, 2fr)'
+  gap={4}
+>
+    <Button  colorScheme='green'  onClick={GetData}>Get ALL</Button> 
 
    
-      <Button  w='50%' h='10' bg='blue.500' onClick={onOpen}>Delete all</Button> 
+      <Button  leftIcon={<IoMdTrash />}colorScheme='red' onClick={onOpen}> Delete all   </Button> 
   
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -234,7 +233,7 @@ const logout = () =>{
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
+            <Button colorScheme='blue' onClick={onClose}>
               Close
             </Button>
             <Button onClick={deleteAll} variant='ghost'> Proceed </Button>
@@ -242,26 +241,44 @@ const logout = () =>{
         </ModalContent>
       </Modal>
   
-    <Button  w='50%' h='10' bg='blue.500' onClick={GetCertainTodos}>Get Finished</Button>
+    <Button colorScheme='facebook'  onClick={GetCertainTodos}>Get Finished</Button>
   
-    <Button  w='50%' h='10' bg='blue.500' onClick={GetCertainTodos2}>Get Pending</Button>
+    <Button colorScheme='facebook' onClick={GetCertainTodos2}>Get Pending</Button>
   
-    <Button  w='50%' h='10' bg='blue.500' onClick={relodpage} > Reload Page </Button>
+    <Button  colorScheme='facebook' onClick={relodpage} > Reload Page </Button>
 
-    </Grid>
    
+    </Grid>
+    {/* </Box> */}
+    </Center>
     </div>
       {/* {map} */}
                   <br/>
             <br/>
-      {mapOverTasks}
+            <SimpleGrid columns={3} p='20px'minChildWidth='500px' >
+            <Box h='200px' border='solid 1px gray'  >
+            <Tabs variant='enclosed'>
+  <TabList>
+    <Tab  >The todos</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
+    {mapOverTasks}
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+</Box>
+</SimpleGrid>
       <br/>
       </div>}/>
         <Route path="login" element={< Login setIsLoggedIn={setIsLoggedIn} setusername={setusername} />} />
         <Route path="register" element={< Register setRegistered={setRegistered}  />} />
       </Routes>
 
-    </div>
+    </Box>
   )
   
 }
