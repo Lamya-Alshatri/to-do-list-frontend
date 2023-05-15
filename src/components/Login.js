@@ -79,10 +79,10 @@ export default function Login(props) {
         
         <div className="Login">
          
-         <div className='Register' style={{backgroundColor:'#FC997C'}}>
+         <div className='Register' >
   <h4 className=''>Login</h4>
   </div>
-  <div className="Register" style={{backgroundColor:'white'}}>
+  <div className="Register" >
     <br/>
 
     <span className =" ">Email </span>

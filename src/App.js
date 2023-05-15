@@ -1,5 +1,5 @@
 
-import './App.css';
+// import './App.css';
 
 import React, { useState } from 'react'
 import Todo from "./components/Todo"
@@ -8,6 +8,24 @@ import Add from"./components/Add"
 import Register from"./components/Register"
 import Login from "./components/Login"
 import { Routes, Route, Link } from "react-router-dom";
+import { Box, Center, Heading, useDisclosure } from '@chakra-ui/react'
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Grid
+} from '@chakra-ui/react'
+import { Button} from '@chakra-ui/react'
+import { SimpleGrid  } from '@chakra-ui/react'
+import { IoMdTrash } from "react-icons/io";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import Header from './components/Header';
+
+// import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 
 export default function App() {
@@ -15,11 +33,12 @@ export default function App() {
 
   const endpoint = process.env.REACT_APP_ENDPOINT
 
- 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const GetData = () => {
   axios.get(`${endpoint}/tasks`)
   .then(res => {
- console.log(process.env)
+//  console.log(process.env)
     setTasks(res.data)
   })
   .catch(err => {
@@ -161,66 +180,105 @@ const logout = () =>{
 }
   
   return(
-    <div className='App '>
+    <Box bg='pallete.whiteBlue' >
 
     
       
-    <ul className="">
-      <li className="it1">
-      <Link className=' link' to="/home">Home</Link>
-      </li>
-      <li className="it2">
-      <Link className='link' to="/register">Register</Link>
-      </li>
-      <li className="it3">
-      <Link className='link' to="/login">Login</Link>
-      </li>
-
-      <li className='No'> Welcome {username}</li>
-    </ul>
+<Header name={username} logout={logout} />
   
 
 <br/>
-<div className='Do'>
+{/* <div className='Do'>
 
       <button  className='btn' onClick={logout}>logout</button>
    
-    </div> 
+    </div>  */}
 <br/>
-<h1 className='list1'>To-Do list</h1>
+<Center>
+<Heading color='pallete.darkBlue' as='h1' m={10}  /*className='list1'*/>To-Do list</Heading>
 <br/>
 
-
+</Center>
       <Routes>
-        <Route path="/home" element={<div className="home">
-
+        <Route path="/home" element={<div >
+          <Center>
         <Add addfunction={postaNewTodo}/>
+        </Center>
         <br/>
-        <hr className=""/>
+        <hr />
 
             <br/>
-    <div className='wrapper'>
-    <button className='box a'  onClick={GetData}>Get ALL</button> 
-    
-    <button className='box b' onClick={deleteAll}>Delete All</button>
+    <div >
+   
+    <Center>
+    {/* <Box boxSize='sm' border='solid 1px'> */}
+    <Grid
+  h='200px'
+  templateRows='repeat(3, 1fr)'
+  templateColumns='repeat(3, 2fr)'
+  gap={4}
+>
+    <Button  colorScheme='green'  onClick={GetData}>Get ALL</Button> 
+
+   
+      <Button  leftIcon={<IoMdTrash />}colorScheme='red' onClick={onOpen}> Delete all   </Button> 
   
-    <button className='box c' onClick={GetCertainTodos}>Get Finished</button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Confirmation window</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          Are you sure you want to delete all of the to-dos ?
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' onClick={onClose}>
+              Close
+            </Button>
+            <Button onClick={deleteAll} variant='ghost'> Proceed </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
   
-    <button className='box d' onClick={GetCertainTodos2}>Get Pending</button>
+    <Button colorScheme='facebook'  onClick={GetCertainTodos}>Get Finished</Button>
   
-    <button className='box e' onClick={relodpage} > Reload Page </button>
+    <Button colorScheme='facebook' onClick={GetCertainTodos2}>Get Pending</Button>
+  
+    <Button  colorScheme='facebook' onClick={relodpage} > Reload Page </Button>
+
+   
+    </Grid>
+    {/* </Box> */}
+    </Center>
     </div>
       {/* {map} */}
                   <br/>
             <br/>
-      {mapOverTasks}
+            <SimpleGrid columns={3} p='20px'minChildWidth='500px' >
+            <Box h='200px' border='solid 1px gray'  >
+            <Tabs variant='enclosed'>
+  <TabList>
+    <Tab  >The todos</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
+    {mapOverTasks}
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+</Box>
+</SimpleGrid>
       <br/>
       </div>}/>
         <Route path="login" element={< Login setIsLoggedIn={setIsLoggedIn} setusername={setusername} />} />
         <Route path="register" element={< Register setRegistered={setRegistered}  />} />
       </Routes>
 
-    </div>
+    </Box>
   )
   
 }
