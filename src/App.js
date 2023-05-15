@@ -194,13 +194,14 @@ const logout = () =>{
    
     </div>  */}
 <br/>
-<Center>
+
+      <Routes>
+        <Route path="/home" element={<div >
+          <Center>
 <Heading color='pallete.darkBlue' as='h1' m={10}  /*className='list1'*/>To-Do list</Heading>
 <br/>
 
 </Center>
-      <Routes>
-        <Route path="/home" element={<div >
           <Center>
         <Add addfunction={postaNewTodo}/>
         </Center>
