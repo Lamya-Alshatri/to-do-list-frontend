@@ -4,12 +4,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-
-
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { mode } from '@chakra-ui/theme-tools';
+import { StyleFunctionProps } from '@chakra-ui/styled-system';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
 
 
 
@@ -22,12 +21,13 @@ const colors = {
     purple:'#5856d6',
     indigo:'#470063',
     teal:'#00ADB5',
-    gray:'#EEEEEE'
+    gray:'#EEEEEE',
+    BlueGreen:'#088F8F'
 
 }
 }
 
-const layerStyles = {
+/* const layerStyles = {
  
   linkStyle:{
  textDecoration:"none",
@@ -35,19 +35,42 @@ const layerStyles = {
   }
  
  }
+  */
+
+ const gstyles = {
+  styles:{
+global:{
+  body: {
+    bg: "pallete.whiteBlue"
+      }
+} 
+  }
+}
 
 const fonts = {
-heading:'Courier new',
+heading:'heebo',
  body:'heebo'
 }
 
-const theme = extendTheme({colors, fonts, layerStyles})
+const websiteColor = {
+  body:{
+    bg:"#c4d0ff"
+  }
+}
+
+const theme = extendTheme({colors, fonts, styles:{
+  global:{
+    body:{
+      bg:"pallete.whiteBlue"
+    }
+  }
+}})
 
 root.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
     <Router>
-    <App />
+    <App/>
   </Router>
   </ChakraProvider>
   </React.StrictMode>,

@@ -7,8 +7,8 @@ import axios from 'axios';
 import Add from"./components/Add"
 import Register from"./components/Register"
 import Login from "./components/Login"
-import { Routes, Route, Link } from "react-router-dom";
-import { Box, Center, Heading, useDisclosure } from '@chakra-ui/react'
+import { Routes, Route } from "react-router-dom";
+import { Box, Flex, Heading, useDisclosure } from '@chakra-ui/react'
 import {
   Modal,
   ModalOverlay,
@@ -20,12 +20,12 @@ import {
   Grid
 } from '@chakra-ui/react'
 import { Button} from '@chakra-ui/react'
-import { SimpleGrid  } from '@chakra-ui/react'
+
 import { IoMdTrash } from "react-icons/io";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+
 import Header from './components/Header';
 
-// import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+
 
 
 export default function App() {
@@ -180,7 +180,7 @@ const logout = () =>{
 }
   
   return(
-    <Box bg='pallete.whiteBlue' >
+    <Box bg='pallete.whiteBlue' alignItems='center'  >
 
     
       
@@ -196,22 +196,22 @@ const logout = () =>{
 <br/>
 
       <Routes>
-        <Route path="/home" element={<div >
-          <Center>
+        <Route path="/home" element={<Box>
+          <Flex  justifyContent='center'>
 <Heading color='pallete.darkBlue' as='h1' m={10}  /*className='list1'*/>To-Do list</Heading>
 <br/>
 
-</Center>
-          <Center>
+</Flex>
+        <Flex justifyContent='center' >
         <Add addfunction={postaNewTodo}/>
-        </Center>
+        </Flex>
         <br/>
-        <hr />
+       
 
-            <br/>
-    <div >
+        <br/>
+    <Box >
    
-    <Center>
+    <Flex justifyContent='center'>
     {/* <Box boxSize='sm' border='solid 1px'> */}
     <Grid
   h='200px'
@@ -251,30 +251,22 @@ const logout = () =>{
    
     </Grid>
     {/* </Box> */}
-    </Center>
-    </div>
+    </Flex>
+    </Box>
       {/* {map} */}
                   <br/>
             <br/>
-            <SimpleGrid columns={3} p='20px'minChildWidth='500px' >
-            <Box h='200px' border='solid 1px gray'  >
-            <Tabs variant='enclosed'>
-  <TabList>
-    <Tab  >The todos</Tab>
-  </TabList>
-  <TabPanels>
-    <TabPanel>
+           
+            
+        
+
+  
     {mapOverTasks}
-    </TabPanel>
-    <TabPanel>
-      <p>two!</p>
-    </TabPanel>
-  </TabPanels>
-</Tabs>
-</Box>
-</SimpleGrid>
+ 
+
+
       <br/>
-      </div>}/>
+      </Box>}/>
         <Route path="login" element={< Login setIsLoggedIn={setIsLoggedIn} setusername={setusername} />} />
         <Route path="register" element={< Register setRegistered={setRegistered}  />} />
       </Routes>
